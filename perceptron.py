@@ -13,7 +13,7 @@ import random
 
 NEGATIVE = -1.0
 POSITIVE = 1.0
-SAMPLE_POINTS = 100
+SAMPLE_POINTS = 10000
 ITERATIONS = 1000
 
 class Line(object):
@@ -22,7 +22,7 @@ class Line(object):
 	def __init__(self):
 		self.line = self.generateLine()
 		self.slope, self.intercept = self.line[0], self.line[1]
-		print self.slope, self.intercept
+		
 
 	def generateLine(self):
 		""" 
@@ -103,11 +103,16 @@ def train(iterations, dataset):
 		else:
 			correct.append(data)
 	total = float(len(incorrect) + len(correct))
+	print "\n"
 	print "Total points: (before training)", total
 	print "Correct classification: (before training)", 100 * (len(correct) / total), "%"
-	print "Incorrect classification: (before training)", 100* (len(incorrect) / total), "%"
+	print "Incorrect classification: (before training)", 100 * (len(incorrect) / total), "%"
+	print "\n"
 	for i in range(iterations):
 		if len(incorrect) == 0:
+			print "Total points:", SAMPLE_POINTS
+			print "Correct classification:", "100.0", "%"
+			print "Incorrect classification:", "0.0", "%"
 			return weight # We are done, classified all points correctly.
 		else:
 			randomDataPoint = random.choice(incorrect)
@@ -119,26 +124,27 @@ def train(iterations, dataset):
 			newIncorrect = []
 			weight = weight + (label * vector)
 			for data in correct:
-				v = data[0] # Abbrev.
-				l = data[1] # Abbrev.
-				if trainingFunction(weight, v) != l:
+				vector = data[0]
+				label = data[1] 
+				if trainingFunction(weight, vector) != label:
 					newIncorrect.append(data)
 				else:
 					newCorrect.append(data)
 			for data in incorrect:
-				y = data[0] # Abbrev.
-				l = data[1] # Abbrev.
-				if trainingFunction(weight, v) != l:
+				vector = data[0] 
+				label = data[1] 
+				if trainingFunction(weight, vector) != label:
 					newIncorrect.append(data)
 				else:
 					newCorrect.append(data)
 		correct = newCorrect
 		incorrect = newIncorrect
-		# print "Updated weight vector to ", weight
+
+		
 	total = float(len(incorrect) + len(correct))
 	print "Total points: ", total
 	print "Correct classification: ", 100 * (len(correct) / total), "%"
-	print "Incorrect classification: ", 100* (len(incorrect) / total), "%"
+	print "Incorrect classification: ", 100 * (len(incorrect) / total), "%"
 	return weight
 
 
