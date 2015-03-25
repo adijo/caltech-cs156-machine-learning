@@ -2,6 +2,17 @@
 Utilities for learning algorithms
 """
 
+# Imports
+
+import random
+import numpy as np
+
+
+# Globals
+
+NEGATIVE = -1.0
+POSITIVE = 1.0
+
 class Line(object):
 	"""Abstraction of a line."""
 

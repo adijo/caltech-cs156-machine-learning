@@ -18,7 +18,7 @@ SAMPLE_POINTS = 1000
 ITERATIONS = 100
 
 
-def samplePoints(n, line):
+def sample(n, line):
 	"""
 	Returns a list of n points (3 D vectors)
 	with a classification label
@@ -113,5 +113,5 @@ def train(iterations, dataset):
 
 
 line = Line()
-dataset = samplePoints(SAMPLE_POINTS, line)
+dataset = sample(SAMPLE_POINTS, line)
 print train(ITERATIONS, dataset)
